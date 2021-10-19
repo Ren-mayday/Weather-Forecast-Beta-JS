@@ -1,23 +1,22 @@
 body {
   background-color: #135293;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Noto Sans", sans-serif;
 }
 
-h1 {
+p {
+  font-size: 18px;
+}
+
+.city {
   font-size: 30px;
   margin-top: 20px;
   color: #ffff;
 }
 
-.fa-map-marker-alt {
-  font-size: 19px;
-  margin-right: 5px;
-}
-
 .container {
   background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
-  height: 420px;
-  width: 800px;
+  height: 450px;
+  width: 850px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -28,14 +27,44 @@ h1 {
 .current-weather,
 .weather-info {
   background-color: #007cb9;
-  height: 150px;
-  width: 100px;
+  height: 175px;
+  width: 150px;
   border-radius: 10px;
   margin-top: 40px;
   margin-left: 40px;
   border-style: solid;
   border-color: #f7f7f7;
   border-width: 5px 5px 5px 5px;
+}
+
+#city-display {
+  text-transform: capitalize;
+}
+
+.degree-celsius-fahrenheit {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.celsius:hover {
+  font-weight: 900;
+}
+
+.fahrenheit:hover {
+  font-weight: 900;
+}
+
+#degree {
+  display: none;
+}
+
+#current-date {
+  color: #fff;
+}
+
+.days-of-the-week {
+  font-size: 20px;
 }
 
 ul {
@@ -59,6 +88,7 @@ li {
 .search-bar {
   margin-top: 25px;
   margin-left: 20px;
+  width: 350px;
 }
 
 .search-container {
@@ -78,7 +108,7 @@ li {
 }
 
 .search-container:hover > .search-input {
-  width: 400px;
+  width: 200px;
 }
 
 .search-container .search-input {
@@ -114,7 +144,32 @@ li {
   animation: hoverShake 0.15s linear 3;
 }
 
+button {
+  background-color: #007cb9;
+  color: #fff;
+  border-color: #007cb9;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  padding: 5px 5px;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: #135293;
+  color: #fff;
+  transition: 0.2s ease-in-out;
+}
+
+.location-icon {
+  font-size: 13px;
+}
+
+#current-location {
+  margin-top: 22px;
+}
+
 .author {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 35px;
 }

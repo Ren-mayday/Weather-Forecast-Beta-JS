@@ -5,20 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!--Bootstrap-->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
-
+    <!--Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"
       rel="stylesheet"
     />
-
+    <!--Font-Icons-->
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
@@ -26,9 +27,12 @@
       crossorigin="anonymous"
     />
 
+    <!--Axios-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <link rel="stylesheet" href="style.css" />
 
-    <title>WireFrame Homework Rencel</title>
+    <title>Weather Cast with JS - Beta</title>
   </head>
   <body>
     <!--This is current weather -->
@@ -36,9 +40,17 @@
       <div class="col-12">
         <div class="row">
           <div class="col-5 current-weather">
-            <h1>
-              <i class="fas fa-map-marker-alt"></i>Barcelona, Spain ⛅ 21º
+            <h1 class="city">
+              <span id="city-display">Kuala-Lumpur</span> ⛅
+              <span id="temperature-display"></span>º
             </h1>
+            <label for="degree" class="degree-celsius-fahrenheit"
+              ><span class="celsius">C</span> |
+              <span class="fahrenheit">F</span></label
+            >
+            <input type="checkbox" id="degree" name="degree" /> <br />
+            <time id="current-date"></time>
+            <!-- id en spans, cambiar texto ciudad y temperatura// Cº|Fº (función event click) -->
           </div>
           <div class="col-5 weather-info">
             <ul>
@@ -51,29 +63,38 @@
         </div>
       </div>
       <!--This is the end of current weather. Starts daily weather forecast-->
-      <div class="weatherForecast">
+      <div class="weather-forecast">
         <div class="col-12">
           <div class="row">
-            <div class="col-2"><p>Mon ☀</p></div>
-            <div class="col-2"><p>Tue 🌤</p></div>
-            <div class="col-2"><p>Wed 🌦</p></div>
-            <div class="col-2"><p>Thu 🌤</p></div>
-            <div class="col-2"><p>Fri 🌧</p></div>
+            <div class="col-2"><p class="days-of-the-week">Mon ☀</p></div>
+            <div class="col-2"><p class="days-of-the-week">Tue 🌤</p></div>
+            <div class="col-2"><p class="days-of-the-week">Wed 🌦</p></div>
+            <div class="col-2"><p class="days-of-the-week">Thu 🌤</p></div>
+            <div class="col-2"><p class="days-of-the-week">Fri 🌧</p></div>
           </div>
         </div>
       </div>
       <!--This is the search bar-->
-      <div class="search-bar">
-        <div class="search-container">
-          <input
-            type="text"
-            name="search"
-            placeholder="Enter a city..."
-            class="search-input"
-          />
-          <a href="#" class="search-btn">
-            <i class="fas fa-search"></i>
-          </a>
+      <div class="row">
+        <div class="col-6">
+          <div class="search-bar">
+            <div class="search-container">
+              <input
+                type="text"
+                name="search"
+                placeholder="Enter a city..."
+                class="search-input"
+                id="search-input"
+              />
+              <a href="#" class="search-btn"> <i class="fas fa-search"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <button id="current-location">
+            Current <i class="fas fa-map-marker-alt location-icon"></i>
+          </button>
         </div>
       </div>
       <footer>
@@ -82,6 +103,7 @@
         </div>
       </footer>
     </div>
+
     <script type="text/javascript" src="app.js"></script>
   </body>
 </html>
