@@ -56,7 +56,7 @@ degree.addEventListener("change", function () {
   }
 });
 
-/*let apiKey = "38c349a49afd297ba3e65a07d11fe652";
+/*
 let apiUrl =
   "https://api.openweathermap.org/data/2.5/weather?q=Sidney&units=metric";
 
