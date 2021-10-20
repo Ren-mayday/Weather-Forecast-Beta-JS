@@ -55,16 +55,3 @@ degree.addEventListener("change", function () {
     updateNumberTemperature(17);
   }
 });
-
-/*
-let apiUrl =
-  "https://api.openweathermap.org/data/2.5/weather?q=Sidney&units=metric";
-
-function showTemperature(response) {
-  console.log(response.data);
-  let temperature = Math.round(response.data.main.temp);
-  let h1 = document.querySelector("h1");
-  h1.innerHTML = `It is ${temperature} degrees in Sidney`;
-}
-
-axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemperature);*/
