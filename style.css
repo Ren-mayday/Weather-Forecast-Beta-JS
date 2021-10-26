@@ -3,8 +3,9 @@ body {
   font-family: "Noto Sans", sans-serif;
 }
 
-p {
-  font-size: 18px;
+p,
+a {
+  font-size: 12px;
 }
 
 .city {
@@ -169,7 +170,7 @@ button:hover {
   margin-top: 22px;
 }
 
-.author {
+.coder {
   text-align: center;
   margin-top: 35px;
 }
