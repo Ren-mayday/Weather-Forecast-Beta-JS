@@ -5,7 +5,8 @@ body {
 
 p,
 a {
-  font-size: 12px;
+  font-size: 14px;
+  margin: 0;
 }
 
 .city {
@@ -17,6 +18,7 @@ a {
 #temperature-display {
   font-size: 35px;
   color: #fff;
+  display: flex;
 }
 
 .container {
@@ -52,7 +54,6 @@ a {
   font-weight: 500;
   color: #fff;
   position: relative;
-  top: -15px;
 }
 
 .celsius:hover {

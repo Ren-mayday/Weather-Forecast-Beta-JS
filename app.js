@@ -18,7 +18,9 @@ function formatDate(date) {
   const currentHour = date.getHours();
   const currentMinutes = date.getMinutes();
 
-  return `${currentWeekNameDay} ${currentDay}, ${currentHour}:${currentMinutes}`;
+  return `${currentWeekNameDay} ${currentDay}, ${currentHour}:${currentMinutes
+    .toString()
+    .padStart(2, "0")}`;
 }
 
 const apiKey = "38c349a49afd297ba3e65a07d11fe652";
@@ -35,6 +37,18 @@ function searchCity(e) {
         updateCityDisplay(city);
         let temperature = Math.round(data.main.temp);
         updateNumberTemperature(temperature);
+        console.log(data);
+        const {
+          temp_max: max,
+          temp_min: min,
+          feels_like,
+          humidity,
+        } = data.main;
+        const { speed: windSpeed } = data.wind;
+        updateMaxMin({ max, min });
+        updateFeelsLike(feels_like);
+        updateHumidity(humidity);
+        updateWind({ windSpeed });
       });
   }
 }
@@ -48,7 +62,7 @@ function updateCityDisplay(city) {
 }
 
 function updateNumberTemperature(temperature) {
-  const displayTemperature = document.getElementById("temperature-display");
+  const displayTemperature = document.getElementById("temperature-number");
   displayTemperature.innerHTML = temperature;
 }
 
@@ -87,5 +101,31 @@ function success(pos) {
       updateCityDisplay(data.name);
       let temperature = Math.round(data.main.temp);
       updateNumberTemperature(temperature);
+      const { temp_max: max, temp_min: min, feels_like, humidity } = data.main;
+      const { speed: windSpeed } = data.wind;
+      updateMaxMin({ max, min });
+      updateFeelsLike(feels_like);
+      updateHumidity(humidity);
+      updateWind({ windSpeed });
     });
+}
+
+function updateMaxMin({ min, max }) {
+  const displayMaxMin = document.getElementById("maxMin");
+  displayMaxMin.innerHTML = `Maxº ${max} / Minº ${min}`;
+}
+
+function updateFeelsLike(feelsLike) {
+  const displayFeelsLike = document.getElementById("feelsLike");
+  displayFeelsLike.innerHTML = `Feels Like ${feelsLike}º`;
+}
+
+function updateHumidity(humidity) {
+  const displayHumidity = document.getElementById("humidity");
+  displayHumidity.innerHTML = `Humidity ${humidity}%`;
+}
+
+function updateWind({ windSpeed }) {
+  const displayWind = document.getElementById("wind");
+  displayWind.innerHTML = `Wind ${windSpeed}km/h`;
 }
