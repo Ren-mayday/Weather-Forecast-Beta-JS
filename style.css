@@ -9,6 +9,10 @@ a {
   margin: 0;
 }
 
+.weather-description {
+  color: #fff;
+}
+
 .city {
   font-size: 30px;
   margin-top: 20px;
@@ -68,6 +72,7 @@ a {
   display: none;
 }
 
+#weather-description,
 #current-date {
   color: #fff;
 }

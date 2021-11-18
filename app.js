@@ -45,10 +45,12 @@ function searchCity(e) {
           humidity,
         } = data.main;
         const { speed: windSpeed } = data.wind;
+        const { description: weatherDescription } = data.weather[0];
         updateMaxMin({ max, min });
         updateFeelsLike(feels_like);
         updateHumidity(humidity);
         updateWind({ windSpeed });
+        updateWeatherDescription({ weatherDescription });
       });
   }
 }
@@ -103,10 +105,12 @@ function success(pos) {
       updateNumberTemperature(temperature);
       const { temp_max: max, temp_min: min, feels_like, humidity } = data.main;
       const { speed: windSpeed } = data.wind;
+      const { description: weatherDescription } = data.weather[0];
       updateMaxMin({ max, min });
       updateFeelsLike(feels_like);
       updateHumidity(humidity);
       updateWind({ windSpeed });
+      updateWeatherDescription({ weatherDescription });
     });
 }
 
@@ -117,7 +121,7 @@ function updateMaxMin({ min, max }) {
 
 function updateFeelsLike(feelsLike) {
   const displayFeelsLike = document.getElementById("feelsLike");
-  displayFeelsLike.innerHTML = `Feels Like ${feelsLike}º`;
+  displayFeelsLike.innerHTML = `Feels Like ${Math.round(feelsLike)}º`;
 }
 
 function updateHumidity(humidity) {
@@ -128,4 +132,11 @@ function updateHumidity(humidity) {
 function updateWind({ windSpeed }) {
   const displayWind = document.getElementById("wind");
   displayWind.innerHTML = `Wind ${windSpeed}km/h`;
+}
+
+function updateWeatherDescription({ weatherDescription }) {
+  const displayWeatherDescription = document.getElementById(
+    "weather-description"
+  );
+  displayWeatherDescription.innerHTML = weatherDescription;
 }
