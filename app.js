@@ -116,7 +116,7 @@ function success(pos) {
 
 function updateMaxMin({ min, max }) {
   const displayMaxMin = document.getElementById("maxMin");
-  displayMaxMin.innerHTML = `Maxº ${max} / Minº ${min}`;
+  displayMaxMin.innerHTML = `Maxº ${Math.round(max)} / Minº ${Math.round(min)}`;
 }
 
 function updateFeelsLike(feelsLike) {
