@@ -32,14 +32,17 @@ function searchCity(e) {
         updateWind({ windSpeed });
         updateWeatherDescription({ weatherDescription });
         getForecastData(data.coord);
-        updateWeatherIcon(day.weather[0].icon);
+        updateWeatherIcon(data.weather[0].icon);
       });
   }
 }
 
-function updateWeatherIcon() {
-  const weatherIcon = document.getElementsById("weather-icon");
-  weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="" width="42">`;
+function updateWeatherIcon(icon) {
+  const weatherIcon = document.getElementById("weather-icon");
+  weatherIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${icon}@2x.png`
+  );
 }
 
 const locationBtn = document.getElementById("current-location");
