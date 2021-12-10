@@ -40,7 +40,10 @@
       <div class="col-12">
         <div class="row">
           <div class="col-5 current-weather">
-            <h1 class="city"><span id="city-display">Manila</span> ⛅</h1>
+            <h1 class="city">
+              <span id="city-display">Manila</span
+              ><img id="weather-icon" src="" alt="" />⛅
+            </h1>
             <div id="temperature-display">
               <p id="temperature-number">30</p>
               <label for="degree" class="degree-celsius-fahrenheit"
@@ -49,7 +52,7 @@
               >
               <input type="checkbox" id="degree" name="degree" />
             </div>
-            <span id="weather-description">Weather description</span>
+            <span id="weather-description">Weather description </span>
             <br />
             <time id="current-date"></time>
             <!-- id en spans, cambiar texto ciudad y temperatura// Cº|Fº (función event click) -->
@@ -66,17 +69,9 @@
         </div>
       </div>
       <!--This is the end of current weather. Starts daily weather forecast-->
-      <div class="weather-forecast">
-        <div class="col-12">
-          <div class="row">
-            <div class="col-2"><p class="days-of-the-week">Mon ☀</p></div>
-            <div class="col-2"><p class="days-of-the-week">Tue 🌤</p></div>
-            <div class="col-2"><p class="days-of-the-week">Wed 🌦</p></div>
-            <div class="col-2"><p class="days-of-the-week">Thu 🌤</p></div>
-            <div class="col-2"><p class="days-of-the-week">Fri 🌧</p></div>
-          </div>
-        </div>
-      </div>
+
+      <div class="row" id="daily-forecast"></div>
+
       <!--This is the search bar-->
       <div class="row">
         <div class="col-6">
@@ -102,7 +97,7 @@
       </div>
       <footer>
         <div class="coder">
-          <p>
+          <p class="developer">
             <a
               href="https://github.com/Ren-mayday/Weather-Forecast-Beta-JS"
               target="_blank"

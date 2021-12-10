@@ -1,6 +1,53 @@
+const apiKey = "38c349a49afd297ba3e65a07d11fe652";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
+const forecastApiURL = "https://api.openweathermap.org/data/2.5/onecall";
+
 window.onload = function () {
   document.querySelector("#current-date").innerHTML = formatDate(new Date());
 };
+function searchCity(e) {
+  if (e.key === "Enter") {
+    const city = searchBar.value.toLowerCase();
+    //if (weather[city]) {
+    axios
+      .get(apiUrl, { params: { appid: apiKey, q: city, units: "metric" } })
+      .then((json) => json.data)
+      .then((data) => {
+        updateCityDisplay(city);
+        console.log(data);
+        let temperature = Math.round(data.main.temp);
+        updateNumberTemperature(temperature);
+        globalTemperature = temperature;
+        const {
+          temp_max: max,
+          temp_min: min,
+          feels_like,
+          humidity,
+        } = data.main;
+        const { speed: windSpeed } = data.wind;
+        const { description: weatherDescription } = data.weather[0];
+        updateMaxMin({ max, min });
+        updateFeelsLike(feels_like);
+        updateHumidity(humidity);
+        updateWind({ windSpeed });
+        updateWeatherDescription({ weatherDescription });
+        getForecastData(data.coord);
+        updateWeatherIcon(day.weather[0].icon);
+      });
+  }
+}
+
+function updateWeatherIcon() {
+  const weatherIcon = document.getElementsById("weather-icon");
+  weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="" width="42">`;
+}
+
+const locationBtn = document.getElementById("current-location");
+locationBtn.addEventListener("click", showCurrentLocation);
+
+function showCurrentLocation() {
+  navigator.geolocation.getCurrentPosition(success);
+}
 
 function formatDate(date) {
   const currentDay = date.getDate();
@@ -23,36 +70,22 @@ function formatDate(date) {
     .padStart(2, "0")}`;
 }
 
-const apiKey = "38c349a49afd297ba3e65a07d11fe652";
-const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
-
-function searchCity(e) {
-  if (e.key === "Enter") {
-    const city = searchBar.value.toLowerCase();
-    //if (weather[city]) {
-    axios
-      .get(apiUrl, { params: { appid: apiKey, q: city, units: "metric" } })
-      .then((json) => json.data)
-      .then((data) => {
-        updateCityDisplay(city);
-        let temperature = Math.round(data.main.temp);
-        updateNumberTemperature(temperature);
-        console.log(data);
-        const {
-          temp_max: max,
-          temp_min: min,
-          feels_like,
-          humidity,
-        } = data.main;
-        const { speed: windSpeed } = data.wind;
-        const { description: weatherDescription } = data.weather[0];
-        updateMaxMin({ max, min });
-        updateFeelsLike(feels_like);
-        updateHumidity(humidity);
-        updateWind({ windSpeed });
-        updateWeatherDescription({ weatherDescription });
+function getForecastData(coords) {
+  console.log(coords);
+  axios
+    .get(forecastApiURL, {
+      params: { appid: apiKey, ...coords, units: "metric" },
+    })
+    .then((json) => json.data)
+    .then((data) => {
+      const displayDailyForecast = document.getElementById("daily-forecast");
+      displayDailyForecast.innerHTML = null;
+      const dailyData = data.daily.slice(1, 6);
+      dailyData.forEach((day) => {
+        console.log(day);
+        updateDailyForecast(day);
       });
-  }
+    });
 }
 
 const searchBar = document.getElementById("search-input"); // devuelve un elemento HTML
@@ -63,6 +96,8 @@ function updateCityDisplay(city) {
   displayCity.innerHTML = city;
 }
 
+let globalTemperature;
+
 function updateNumberTemperature(temperature) {
   const displayTemperature = document.getElementById("temperature-number");
   displayTemperature.innerHTML = temperature;
@@ -70,22 +105,14 @@ function updateNumberTemperature(temperature) {
 
 const degree = document.querySelector("input[name=degree]");
 
-/*degree.addEventListener("change", function () {
+degree.addEventListener("change", function () {
   if (this.checked) {
-    let temp = 17;
-    let tempFahrenheit = Math.round((temp * 9) / 5 + 32);
+    let tempFahrenheit = Math.round((globalTemperature * 9) / 5 + 32);
     updateNumberTemperature(tempFahrenheit);
   } else {
-    updateNumberTemperature(17);
+    updateNumberTemperature(globalTemperature);
   }
-});*/
-
-function showCurrentLocation() {
-  navigator.geolocation.getCurrentPosition(success);
-}
-
-const locationBtn = document.getElementById("current-location");
-locationBtn.addEventListener("click", showCurrentLocation);
+});
 
 function success(pos) {
   const coords = pos.coords;
@@ -103,6 +130,7 @@ function success(pos) {
       updateCityDisplay(data.name);
       let temperature = Math.round(data.main.temp);
       updateNumberTemperature(temperature);
+      globalTemperature = temperature;
       const { temp_max: max, temp_min: min, feels_like, humidity } = data.main;
       const { speed: windSpeed } = data.wind;
       const { description: weatherDescription } = data.weather[0];
@@ -112,6 +140,7 @@ function success(pos) {
       updateWind({ windSpeed });
       updateWeatherDescription({ weatherDescription });
     });
+  getForecastData({ lat: coords.latitude, lon: coords.longitude });
 }
 
 function updateMaxMin({ min, max }) {
@@ -140,3 +169,30 @@ function updateWeatherDescription({ weatherDescription }) {
   );
   displayWeatherDescription.innerHTML = weatherDescription;
 }
+
+function updateDailyForecast(day) {
+  const displayDailyForecast = document.getElementById("daily-forecast");
+  const weatherForecastCard = `
+            <div class="weather-forecast-daily">${new Date(
+              day.dt * 1000
+            ).toLocaleString("en-US", { weekday: "short" })}</div>
+            <img src="http://openweathermap.org/img/wn/${
+              day.weather[0].icon
+            }@2x.png" alt="" width="42">
+              <div class="weather-forecast-temperature">
+                <span class="class="weather-forecast-temperature-max">${Math.round(
+                  day.temp.max
+                )}º/</span><span class="weather-forecast-temperature-min">${Math.round(
+    day.temp.min
+  )}º</span></div>`;
+  const rowElement = document.createElement("div");
+  rowElement.className = "col-2";
+  rowElement.innerHTML = stringToHTML(weatherForecastCard);
+  displayDailyForecast.appendChild(rowElement);
+}
+
+const stringToHTML = function (str) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(str, "text/html");
+  return doc.body.innerHTML;
+};

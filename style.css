@@ -3,9 +3,8 @@ body {
   font-family: "Noto Sans", sans-serif;
 }
 
-p,
-a {
-  font-size: 14px;
+p {
+  font-size: 18px;
   margin: 0;
 }
 
@@ -27,7 +26,7 @@ a {
 
 .container {
   background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
-  height: 450px;
+  height: 480px;
   width: 850px;
   display: block;
   margin-left: auto;
@@ -39,7 +38,7 @@ a {
 .current-weather,
 .weather-info {
   background-color: #007cb9;
-  height: 175px;
+  height: 180px;
   width: 150px;
   border-radius: 10px;
   margin-top: 40px;
@@ -92,11 +91,10 @@ li {
 
 .col-2 {
   background-color: #ffff;
-  height: 70px;
-  width: 50px;
   border-radius: 5px;
   margin-top: 30px;
   margin-left: 20px;
+  padding-bottom: 5px;
 }
 
 .search-bar {
@@ -186,4 +184,8 @@ button:hover {
 .coder {
   text-align: center;
   margin-top: 35px;
+}
+
+.developer {
+  font-size: 14px;
 }
