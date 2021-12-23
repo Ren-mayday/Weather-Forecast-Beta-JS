@@ -58,10 +58,10 @@ function formatDate(date) {
     "Sunday",
     "Monday",
     "Tuesday",
+    "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
-    "Sunday",
   ];
   const currentWeekNameDay = weekNameDays[date.getDay()];
 
